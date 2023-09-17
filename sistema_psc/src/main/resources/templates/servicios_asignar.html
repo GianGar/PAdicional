@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="BarraLateral">...</nav>
+<div id="content">
+
+<h4 class="titulo"><em class="fad fa-users"></em> Asignando servicio</h4><hr>
+	<div class="row justify-content-between">
+    <div class="col-4">
+      <form class="form-inline">
+    <input name="filtro" class="form-control mr-sm-2" type="search" placeholder="Nombre del efectivo" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><em class="fa fa-search"></em> Buscar</button>
+  </form>
+    </div>
+  </div>
+  
+  <hr>
+
+	
+		<div class="panel panel-default">
+			<div class="panel-heading"></div>
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Foto</th>
+						<th>Apellido y nombre</th>
+						<th>Destino</th>
+						<th>Acciones</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="persona : ${modeloPH}">
+						<td>
+							<img class="zoom" th:src="@{'/fotos/personal/'+${persona.foto}}" alt=""
+							th:onerror="this.onerror=null;this.src='/imgs/usuario_sin_foto.png';">
+						</td>
+						<td><strong><span th:text="${persona.policia.persona.nombre}" style="color:#0000FF;"></span><br>
+						<span th:text="${persona.policia.jerarquia.descripcion}"></span></strong></td>
+						<td th:text="${persona.policia.destino.descripcion}"></td>
+						<td width="300px">	
+							<a href="#" th:href="@{/gestion/servicios/asignacion?id=__${persona.idEfectivo}__}">
+								<button type="button" class="btn btn-info">
+									<i class="fa fa-angle-double-right"></i> Asignar el servicio
+								</button>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table><br>
+			<nav th:replace="fragments/paginador :: paginador"></nav>
+		</div>
+	</div>
+	</div>
+
+      
+
+
+</body>
+</html>

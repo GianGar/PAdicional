@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/personal/listar}">Personal habilitado</a></strong></li>
+		<li class="active"><i><span th:text="|Información de «${efectivo}»|"></span></i></li>
+	</ol>
+</div>
+			
+<!--------------------------------------- INICIO ----------------------------------------------->
+			
+<div class="container">
+<h4><em class="fad fa-users"></em> <strong><span th:text="|Información de «${efectivo}»|"></span></strong></h4><hr>
+
+<form action="#" th:action="@{/gestion/personal/nuevo}" th:object="${modeloPersonal}" method="POST" enctype="multipart/form-data">
+	<input type="hidden" th:field="*{id}" th:value="${id}"></input>
+	<input type="hidden" th:field="*{idEfectivo}" th:value="${idEfectivo}"></input>
+
+<h6><strong>● Información de Policía Adicional</strong></h6>
+
+<div class="row">
+	<div class="col-6">
+		<div class="custom-control custom-checkbox">
+			<input type="checkbox" class="custom-control-input" id="customCheck1" th:field="*{arma}" th:value="${arma}">
+			<label class="custom-control-label" for="customCheck1">El efectivo tiene arma</label>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<div class="custom-control custom-checkbox">
+			<input type="checkbox" class="custom-control-input" id="customCheck2" th:field="*{traje}" th:value="${traje}">
+			<label class="custom-control-label" for="customCheck2">El efectivo tiene traje</label>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<div class="custom-control custom-checkbox">
+			<input type="checkbox" class="custom-control-input" id="customCheck3" th:field="*{uniforme}" th:value="${uniforme}">
+			<label class="custom-control-label" for="customCheck3">El efectivo tiene uniforme</label>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<div class="custom-control custom-checkbox">
+			<input type="checkbox" class="custom-control-input" id="customCheck4" th:field="*{civilFormal}" th:value="${civilFormal}">
+			<label class="custom-control-label" for="customCheck4">El efectivo tiene vestimenta civil formal</label>
+		</div>
+	</div>
+</div>	
+<hr>
+
+<div class="row">
+					<div class="col-1" ><p class="h6">Fotografía:</p></div>
+					<div class="col">
+						<input type="file" name="file" class="m-2"></input>
+					</div>
+				</div> 
+				<br>
+				<strong>Importante: La foto no puede pesar más de 1 MB. Formatos permitidos: JPG, PNG.</strong>
+				<hr>
+
+
+			
+			<button class="btn btn-primary" type="submit">
+				<i class="fa fa-save"></i>
+				Guardar
+			</button>
+			
+			</form>
+			
+		
+
+</div>
+
+<!---------------------------------------  FIN   ----------------------------------------------->
+
+</div>
+</div>
+
+      
+
+
+</body>
+</html>

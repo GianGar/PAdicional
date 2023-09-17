@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="Barra"></nav>
+<div id="content">
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li class="active"><i>Servicios</i></li>
+	</ol>
+</div>
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+	
+<h4><strong><em class="fad fa-file-alt"></em> Servicios</strong></h4><hr>
+	
+<table class="table table-hover">
+	<caption></caption>
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">Período</th>
+			<th scope="col">Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="periodo : ${periodos}" th:if="${periodo.generado} != 0">
+			<td><h5><span th:text="${periodo.descripcion}"></span></h5></td>
+			<td><h5>
+				<span th:if="${periodo.generado} == 2">
+					<a href="#" th:href="@{/gestion/servicios/listado?anio=__${periodo.anio}__&mes=__${periodo.mes}__}">
+						<button class="btn btn-info btn">
+							<em class="fas fa-file-alt"></em> VER LISTADO DE SERVICIOS
+						</button>
+					</a>
+				</span>
+				<span th:if="${periodo.generado} == 1">
+					<a href="#" th:href="@{/gestion/servicios/proceso?anio=__${periodo.anio}__&mes=__${periodo.mes}__}">
+						<button class="btn btn-warning btn">
+							<em class="fas fa-cog"></em> GENERAR SERVICIOS
+						</button>
+					</a>
+				</span>
+				</h5>
+			</td>
+		</tr>
+	</tbody>
+</table>
+   
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></body></html>

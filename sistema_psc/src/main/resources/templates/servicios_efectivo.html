@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<style>
+.zoom {
+  background-color: green;
+  transition: transform .2s; /* Animation */
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.zoom:hover {
+  transform: scale(3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">	
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div th:if="${estado == 'ok'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-trash"></em> Servicio asignado correctamente</strong></h4>
+</div> 
+<div th:if="${estado == 'ok'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-trash"></em> Servicio desvinculado correctamente</strong></h4>
+</div>
+<div th:if="${estado == 'fail'}" class="alert alert-danger" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-exclamation-triangle"></em> Error: No se pudo asignar el servicio</strong></h4><hr>
+	<p class="mb-0">Hubo un error al intentar asignar el servicio.<br>
+	Motivo: Servicio ya asignado, desvincular el servicio antes de asignar.</p>
+</div>
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/personal/listar}">Personal habilitado</a></strong></li>
+		<li><strong><a th:href="@{/gestion/personal/perfil?id=__${modeloPH.id}__}">Perfil de «<span th:text="${modeloPH.policia.persona.nombre}"></span>»</a></strong></li>
+		<li class="active"><em>Servicios de <span th:text="${periodo}"></span></em></li>
+	</ol>
+</div>
+
+<h4><strong><em class="fad fa-tasks"></em> Asignación de servicios para <span th:text="${periodo}"></span><br>Efectivo: <span th:text="${modeloPH.policia.persona.nombre}"></span></strong></h4>
+<hr>
+<dl class="row">
+	<dt class="col-sm-3">Servicios asignados:</dt>
+	<dd class="col-sm-9">
+		<strong><span th:text="|${cantidadServicios} servicios|"></span></strong>
+	</dd>
+	<dt class="col-sm-3">Cantidad de horas en total:</dt>
+	<dd class="col-sm-9">
+	
+		<span class="badge badge-success" th:if="${horas<80}">
+			<em class="fa fa-user-clock"></em> <span th:text="|${horas} horas|"></span>
+		</span>
+		<span class="badge badge-danger" th:if="${horas>=80}">
+			<em class="fa fa-user-clock"></em> <span th:text="|${horas} horas|"></span>
+		</span>
+	</dd>
+</dl>
+<hr>
+	<a th:href="@{/gestion/personal/perfil?id=__${modeloPH.id}__}">
+		<button class="btn btn-secondary"><em class="fad fa-backward"></em> Volver</button>
+	</a>
+	<a th:href="@{/gestion/servicios/seleccionar?id=__${modeloPH.id}__&anio=__${anio}__&mes=__${mes}__}">
+		<button class="btn btn-primary"><em class="fad fa-calendar-alt"></em> Añadir servicio</button>
+	</a>
+<hr>
+<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Nº</th>
+						<th>Objetivo</th>
+						<th>Día</th>
+						<th>Fecha</th>
+						<th>Entrada</th>
+						<th>Salida</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="servicio : ${servicios}">
+						<td th:text="${servicio.numeroListado}"></td>
+						<td><strong>
+							<span th:text="${servicio.objetivo.ente.nombre}"></span><br>
+							<span th:text="${servicio.objetivo.descripcion}"></span>
+						</strong></td>
+						<td th:text="${servicio.dia}"></td>
+						<td th:text="${servicio.fecha}"></td>
+						<td th:text="${servicio.horaEntrada}"></td>
+						<td th:text="${servicio.horaSalida}"></td>	
+						<td>
+							<span th:if="${servicio.efectivo==null}" style="color:#43a047;">
+								<a href="#" th:href="@{/gestion/servicios/asignar?id=__${servicio.id}__}">
+									<button class="btn btn-light"><i class="fad fa-user-plus"></i></button>
+								</a>
+							</span>
+							<span th:if="${servicio.efectivo!=null}" style="color:#43a047;">
+								<a href="#" th:href="@{/gestion/servicios/desvincular?id=__${servicio.id}__}">
+									<button class="btn btn-dark" onclick="return confirm('¿Desea desvincular al efectivo de este servicio?')" data-toggle="tooltip" data-placement="bottom" title="Desvincular el servicio"><i class="fad fa-user-slash"></i> Desvincular de este servicio</button>
+								</a>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+<!--------------------------------------- FIN ----------------------------------------------->
+
+
+	</div>
+	</div>
+
+      
+
+
+</body>
+</html>

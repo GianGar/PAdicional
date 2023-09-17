@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="Barra"></nav>
+<div id="content">
+<div>
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+<div th:if="${bonus == 'asignado_ok'}" class="alert alert-success" role="alert">				
+	<div class="container text-left"><em class="fas fa-check-circle"></em> Servicio asignado correctamente</div>
+</div>
+<div th:if="${bonus == 'desvinculado_ok'}" class="alert alert-success" role="alert">				
+	<div class="container text-left"><em class="fas fa-check-circle"></em> Servicio desvinculado correctamente</div>
+</div>  
+
+<div class="verticals ten offset-by-one">
+			<ol class="breadcrumb breadcrumb-fill2">
+				<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+				<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+				<li><strong><a th:href="@{/gestion/servicios/menu}">Servicios</a></strong></li>
+				<li class="active"><i><span th:text="|${periodo}|"></span></i></li>
+			</ol>
+		</div>
+
+<h4><em class="fad fa-file-alt"></em> <strong><span th:text="|Gestión de servicios (${periodo})|"></span></strong></h4><hr>
+<div class="container text-right">
+	<a href="#" th:href="@{/gestion/servicios/menu}">
+		<button class="btn btn-secondary" type="submit">
+			<em class="fad fa-backward"></em> Volver
+		</button>
+	</a>
+	<a href="#">
+		<button class="btn btn-primary" type="submit" disabled>
+			<em class="fad fa-plus-circle"></em> Nuevo servicio
+		</button>
+	</a>
+</div>
+<hr>
+<form th:action="@{/gestion/servicios/listado}">
+	<div class="row">
+    	<div class="col-1">Entidad:</div> 
+    	<div class="col-3">
+    		<select name="ente" class="form-control">
+    			<option th:value="'0'" th:text="'Todas las entidades'"></option>
+				<option th:each="ente : ${entes}" th:value="${ente.id}" th:text="${ente.nombre}"></option>
+			</select>
+		</div>
+		<div class="col-1">Estado:</div>
+		<div class="col-3">
+			<select name="estado" class="form-control">
+				<option th:value="'todos'" th:text="'Todos los servicios'"></option>
+				<option th:value="'Disponible'" th:text="'Servicios disponibles'"></option>
+				<option th:value="'Asignado'" th:text="'Servicios asignados'"></option>
+			</select>
+		</div>
+		<div class="col-1">Día:</div>
+		<input name="dia" type="number" min="1" max="31" class="form-control mr-sm-2" style="width: 75px;" ></input>
+		<button type="submit" class="btn btn-success"><em class="fad fa-search"></em> Buscar</button>
+		
+	</div>
+	<hr>
+	<div class="alert alert-info" role="alert">
+				<span th:text="|${resultados} servicios encontrados ● ${informacionFiltro}|"></span>   
+  	</div>
+	</form>
+  
+
+	
+		<div class="panel panel-default" th:if="${modeloServicio!=null and !modeloServicio.isEmpty()}">
+		
+		<div class="panel panel-default" th:if="${modeloServicio==null or modeloServicio.isEmpty()}">
+		<h4 class="alert-heading">Sin servicios</h4>
+		  <hr>
+		  <p class="mb-0">No se ha encontrado ningún servicio.
+		</div>
+		<div class="float-right"><nav th:replace="fragments/paginador :: paginador"></nav></div>
+						
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Ente/Objetivo</th>
+						<th>Día</th>
+						<th>Fecha</th>
+						<th>Entrada</th>
+						<th>Salida</th>
+						<th>Asignado a</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="servicio : ${servicio}">
+						<td><strong>
+ 							<span th:text="${servicio.objetivo.ente.nombre}"></span><br> <!-- NOMBRE ENTE -->
+							<span th:text="${servicio.objetivo.descripcion}"></span> <!-- NOMBRE OBJETIVO -->
+						</strong></td> 
+						<td th:text="${servicio.dia}"></td> <!-- DIA -->
+						<td th:text="${servicio.fecha}"></td> <!-- FECHA CONVERTIDA -->
+						<td th:text="${servicio.horaEntrada}"></td> <!-- HORA ENTRADA -->
+						<td th:text="${servicio.horaSalida}"></td> <!-- HORA SALIDA -->
+						<td th:if="${servicio.efectivo!=null}">
+							<strong>
+								<img class="zoom" th:src="@{'/imgs/usuario_sin_foto.png'}" alt=""
+							th:onerror="this.onerror=null;this.src='/imgs/usuario_sin_foto.png';"> &nbsp;
+								<a th:href=""
+								<span th:text="| ${servicio.policia.persona.nombre}|" style="color:blue;"></span>
+							</strong>
+						</td>
+						<td th:if="${servicio.efectivo==null}">
+							<span th:if="${servicio.efectivo==null}">
+								<h4><span class="badge badge-warning">Disponible</span></h4>
+							</span>
+						</td>	
+						
+						<td>
+							<span th:if="${servicio.efectivo==null}" style="color:#43a047;">
+								<a href="#" th:href="@{/gestion/servicios/asignar?id=__${servicio.id}__}">
+									<button class="btn btn-secondary" title="Asignar"><i class="fad fa-user-plus"></i></button>
+								</a>
+							</span>
+							<span th:if="${servicio.efectivo!=null}" style="color:#43a047;">
+								<a href="#" th:href="@{/gestion/servicios/desvincular?id=__${servicio.id}__}">
+									<button class="btn btn-dark" 
+									onclick="return confirm('¿Desea desvincular al efectivo de este servicio?')" 
+									data-toggle="tooltip" data-placement="bottom" title="Desvincular">
+									<em class="fad fa-user-slash"></em></button>
+								</a>
+							</span>
+								<button disabled type="button" class="btn btn-success" 
+								data-toggle="tooltip" data-placement="bottom" title="Modificar servicio">
+									<i class="fa fa-pencil-alt"></i> 
+								</button>
+								<a href="#" th:href="@{/gestion/servicios/eliminar?id=__${servicio.id}__}">
+									<button type="button" class="btn btn-danger" onclick="return confirm('¿Desea eliminar este servicio?')"
+									 data-toggle="tooltip" data-placement="bottom" title="Eliminar servicio">
+										<i class="fa fa-trash-alt"></i> 
+									</button>
+								</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<nav th:replace="fragments/paginador :: paginador"></nav>
+		</div>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

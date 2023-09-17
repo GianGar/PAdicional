@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+	<nav th:fragment="barrausuario" class="navbar navbar-expand-sm bg-light">
+
+	<!-- Links -->
+	  <ul class="navbar-nav">
+	    <li class="nav-item active">
+	        <a class="nav-link" href="#"><em class="fad fa-user"></em> Usuario: <strong><span th:text="${usuario}"></span></strong></a>
+	    </li>
+	    <li class="nav-item active">
+	        <a class="nav-link" href="#"><em class="fad fa-user"></em> Mi perfil</a>
+	    </li>
+	    <li class="nav-item active">
+	        <a class="nav-link" href="#"><em class="fad fa-user"></em> Cerrar sesión</a>
+	    </li>
+	  </ul>
+
+	</nav>
+</body>       	
+</html>

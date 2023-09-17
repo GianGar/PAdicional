@@ -1,0 +1,26 @@
+# policiasantacruz.ddns.net
+# $gPdddhsf4873Ahhdjk5845@g9223id83kjs74
+# policiasantacruz.ddns.net:3306
+spring:
+ servlet:
+  multipart:
+   max-file-size: 1MB
+   max-request-size: 1MB
+ datasource:
+  url: jdbc:mysql://localhost/bd_psc_pruebas?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+  username: root
+  password:
+ jpa:
+  open-in-view: false
+  show-sql: false
+  hibernate:
+   ddl-auto: update
+   naming:
+    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  properties:
+   hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+ thymeleaf:
+  cache: false
+  mode: HTML
+server:
+ port: 8080

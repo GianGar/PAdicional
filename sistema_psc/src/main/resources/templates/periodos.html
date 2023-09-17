@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="BarraLateral"></nav>
+<div id="content">
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div th:if="${estado == 'creacion'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Período creado correctamente</strong></h4>
+</div> 
+
+<div th:if="${estado == 'modificacion'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Período modificado correctamente</strong></h4>
+</div> 
+
+<div th:if="${estado == 'eliminacion'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-trash"></em> Período eliminado correctamente</strong></h4>
+</div> 
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li class="active"><em>Períodos</em></li>
+	</ol>
+</div>
+<hr>
+
+<h4 class="titulo"><em class="fad fa-ballot"></em> Categorías de entidades</h4><hr>
+	<a href="#" th:href="@{/configuracion/periodos/formulario?id=0}">
+		<button class="btn btn-primary btn-lg" type="submit">
+			<em class="fa fa-plus"></em> Nuevo período
+		</button>
+	</a>
+<hr>
+	
+<div class="panel panel-default">
+	<table class="table table-hover">
+		<caption>Listado de períodos</caption>
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Categoría</th>
+				<th scope="col">Valor en pesos por hora</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="i : ${periodos}">
+				<td><h5><span th:text="${categoria.nombre}"></span></h5></td>
+				<td><h5><span th:text="|$${categoria.valorHoraFormat} pesos|"></span></h5></td>
+				<td>
+					<a href="#" th:href="@{/configuracion/categorias/formulario?id=__${categoria.id}__}">
+						<button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Modificar categoría">
+							<em class="fa fa-edit"></em>
+						</button>
+					</a>
+					<a href="#" th:href="@{/configuracion/categorias/eliminar?id=__${categoria.id}__}">
+						<button type="button" class="btn btn-danger" onclick="return confirm('¿Desea eliminar la categoría?')" data-toggle="tooltip" data-placement="bottom" title="Eliminar categoría">
+							<em class="fa fa-trash-alt"></em>
+						</button>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+		
+<div th:if="${result} == 1" class="alert alert-success" role="alert">Agregado correctamente</div>
+<div th:if="${error == 'borrado'}" class="alert alert-success" role="alert">Ha ocurrido un error en la carga</div>
+		
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></body></html>

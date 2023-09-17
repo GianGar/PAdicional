@@ -1,0 +1,34 @@
+body {
+
+    padding-top: 40px;
+  padding-bottom: 40px;
+background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);  
+background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+h2{
+	color: black;
+}
+
+.suspendido{
+	color: #d32f2f;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ffcdd2;
+}
+
+.activo{
+	color: #388e3c;
+	font-weight: bold;
+	background-color: #c8e6c9;
+	text-align: center; 
+}
+
+.entidad{
+	font-weight: bold;
+}
+
+.table{
+	
+}

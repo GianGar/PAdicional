@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">	
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/personal/listado}">Personal habilitado</a></strong></li>
+		<li class="active"><i>Alta de efectivo</i></li>
+	</ol>
+</div>
+			
+<h4><strong><em class="fad fa-users"></em> Alta de efectivo</strong></h4><hr>
+El buscador acepta: Nombre, apellido, DNI o Nº de Agente.<br><br>
+	<form class="form">
+	<div class="row">
+    	<div class="col-4">
+      		<input name="filtro" class="form-control" type="search" aria-label="Search">
+      		</div>
+    <div class="col"><button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i> Buscar</button>
+    </div>
+</div>
+  </form>
+  
+  <br>
+
+	
+		<div class="panel panel-default">
+						
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Foto</th>
+						<th>Apellido y nombre</th>
+						<th>Jerarquía</th>
+						<th>Destino</th>
+						<th>Acciones</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="policia : ${modeloPolicia}">
+						<td>
+						<a href="#" th:href="@{/imgs/perfil/__${policia.nroAgente}__.jpg}" target="_blank" >
+						<img class="zoom" th:src="@{/imgs/perfil/__${policia.nroAgente}__.jpg}"
+							th:onerror="this.onerror=null;this.src='/imgs/usuario_sin_foto.png';">
+						</a>
+						</td>
+						<td><strong><span th:text="${policia.persona.nombre}"></span></strong></td>
+						<td th:text="${policia.jerarquia.descripcion}"></td>
+						<td th:text="${policia.destino.descripcion}"></td>
+						<td> 
+						<a href="#" th:href="@{/gestion/personal/formulario?id=__${policia.id}__}">
+							<button type="button" class="btn btn-info">
+								<i class="fa fa-hand-pointer"></i> Seleccionar
+							</button>
+						</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+
+      
+
+
+</body>
+</html>

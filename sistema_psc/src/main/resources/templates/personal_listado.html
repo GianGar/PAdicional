@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+
+<body>
+<div class="wrapper">
+	<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="Barra"></nav>
+		<div id="content">
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li class="active"><em>Personal habilitado</em></li>
+	</ol>
+</div>
+<hr>
+	
+<h4 class="titulo"><em class="fad fa-users"></em> Personal habilitado</h4><hr>
+
+<a href="#" th:href="@{/gestion/personal/cargar?filtro=nulo}">
+	<button class="btn btn-primary" type="submit">
+		<em class="fa fa-plus-circle"></em> Dar de alta nuevo efectivo
+	</button>
+</a>
+
+<hr>
+<em>El buscador acepta: Nombre, apellido, DNI o Nº de Agente.</em><br>
+<form class="form-inline">
+	<input name="filtro" class="form-control mr-sm-2" type="search" placeholder="Buscar" th:value="${filtro}">
+	<button class="btn btn-success" type="submit">
+		<em class="fa fa-search"></em> Buscar
+	</button>
+</form>
+
+  
+  <hr>
+
+	
+		<div class="panel panel-default">
+		<div class="float-right">
+		<nav th:replace="fragments/paginador :: paginador"></nav>
+		</div>
+		<div th:if="${!modeloPH.empty}">	
+			<table class="table table-hover">
+				<caption></caption>
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col"><em class="fa fa-camera-alt"></em></th>
+						<th scope="col">Efectivo</th>
+						<th scope="col">Servicios asignados<br><span th:text="|(${proximoPeriodo})|"></span></th>
+						<th scope="col">Horas asignadas<br><span th:text="|(${proximoPeriodo})|"></span></th>
+						<th scope="col">Destino actual</th>
+						<th scope="col">Acciones</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="ph : ${modeloPH}">
+						<td><img class="zoom" th:src="@{'/fotos/personal/'+${ph.foto}}" alt=""
+							th:onerror="this.onerror=null;this.src='/imgs/usuario_sin_foto.png';"></td>
+						<td>
+							<strong>
+								<a href="#" th:href="@{/gestion/personal/perfil?id=__${ph.id}__}">
+									<span th:text="${ph.policia.jerarquia.descripcion}"></span><br>
+									<span th:text="${ph.policia.persona.nombre}" style="color:#0000FF;"></span>
+								</a>
+							</strong>
+						</td>
+						<td>
+						<h4>
+							<span class="badge badge-info">
+								<span th:text="|${ph.serviciosProximoMes} servicios|"></span>
+							</span>
+						</h4>
+						</td>
+						<td>
+						<h4>
+							<span class="badge badge-success" th:if="${ph.horasProximoMes<80}">
+								<em class="fa fa-user-clock"></em> <span th:text="|${ph.horasProximoMes} horas|"></span>
+							</span>
+							<span class="badge badge-danger" th:if="${ph.horasProximoMes>=80}">
+								<em class="fa fa-user-clock"></em> <span th:text="|${ph.horasProximoMes} horas|"></span>
+							</span>
+						</h4>
+						</td>
+						<td th:text="${ph.policia.destino.descripcion}"></td>
+						<td style="width=100px;">
+								<a href="#" th:href="@{/gestion/personal/editar?id=__${ph.id}__}">
+								<button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Modificar">
+									<em class="fa fa-edit"></em>
+								</button> 
+								</a>
+								
+								<a href="#" th:href="@{/gestion/personal/eliminar?id=__${ph.id}__}">
+									<button type="button" class="btn btn-danger btn-sm" 
+									onclick="return confirm('¿Desea eliminar este efectivo?')" 
+									data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+										<em class="fa fa-trash-alt"></em>
+									</button> 
+								</a>
+								<a href="#" th:href="@{/gestion/personal/perfil?id=__${ph.id}__}">
+								<button type="button" class="btn btn-info btn-sm">
+									<em class="fa fa-angle-double-right"></em> <strong>SERVICIOS</strong>
+								</button>
+								</a>
+							</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			</div>	
+			
+		<div th:if="${modeloPH.empty}" class="alert alert-danger" role="alert">	
+			<h4 class="alert-heading"><strong><em class="fa fa-exclamation-triangle"></em> No hay resultados</strong></h4>
+		</div>
+
+			
+		<nav th:replace="fragments/paginador :: paginador"></nav>
+			
+		</div>
+		
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></body></html>

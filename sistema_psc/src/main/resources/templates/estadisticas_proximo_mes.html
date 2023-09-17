@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<style>
+.zoom {
+  background-color: green;
+  transition: transform .2s; /* Animation */
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.zoom:hover {
+  transform: scale(3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">	
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<h4 class="titulo"><em class="fad fa-chart-pie"></em> Estado de los servicios de <span th:text="${periodoProximo}"></span></h4>
+<hr>
+
+<dl class="row">
+	<dt class="col-sm-3">● Servicios totales</dt>
+	<dd class="col-sm-9">
+  		<span th:text="${serviciosTotales}"></span>
+	</dd>
+	<dt class="col-sm-3">● Servicios asignados</dt>
+	<dd class="col-sm-9">
+  		<span th:text="${serviciosAsignados}"></span>
+	</dd>
+	<dt class="col-sm-3">● Porcentaje de asignación</dt>
+	<dd class="col-sm-9">
+  		<span th:text="|${porcentaje}%|"></span>
+	</dd>
+</dl>
+
+<hr>
+
+<!-- <img th:src="@{/graficos/Grafico 04-12-2019 20_32_45.jpeg}" alt="Gestión de entidades"  width="400" height="300">
+ -->
+<!--------------------------------------- FIN ----------------------------------------------->
+
+
+	</div>
+	</div>
+
+      
+
+
+</body>
+</html>

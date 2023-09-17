@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Policía Adicional</title>
+<meta charset="utf-8" />
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head><body><div>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+<!--------------------------------------- INICIO ----------------------------------------------->
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li class="active"><em>Categorías de entidades</em></li>
+	</ol>
+</div>
+<hr>
+<div class="container">
+<h4 class="titulo"><em class="fad fa-ballot"></em> <span th:text="${titulo}"></span></h4><hr>
+
+<form action="#" th:action="@{/configuracion/categorias/nueva}" th:object="${modeloCategoria}" method="POST">
+	<input type="hidden" th:field="*{id}"></input>
+	<input type="hidden"></input>
+	<div class="row">
+		<div class="col-2">
+			<p class="h6">Nombre de la categoría:</p>
+		</div>
+		<div class="col-2">
+			<input type="text" class="form-control" th:field="*{nombre}" th:value="${nombre}" required></input>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-2">
+			<p class="h6">Valor hora en pesos:</p>
+		</div>
+		<div class="col-2">
+			<input type="number" min="1" step="0.01" class="form-control" th:field="*{valorHora}" th:value="${valorHora}" required></input>
+		</div>
+	</div>
+	<hr>
+	<div class="container text-right">
+	<button class="btn btn-primary btn-lg" type="submit">
+		<em class="fa fa-save"></em> GUARDAR
+	</button>
+	</div>
+</form>
+		
+<a href="#" th:href="@{/configuracion/categorias/listar}">
+	<button class="btn btn-secondary btn-lg">
+		<em class="fa fa-backward"></em> VOLVER
+	</button>
+</a>
+</div>
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></div></body></html>

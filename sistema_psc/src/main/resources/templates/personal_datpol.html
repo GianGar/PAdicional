@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+
+
+<div th:if="${modificado != null}" class="alert alert-success" role="alert">
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Datos modificados correctamente</strong></h4>
+</div>
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/personal/listar}">Personal habilitado</a></strong></li>
+		<li><strong><a th:href="@{/gestion/personal/perfil?id=__${ph.id}__}"><span th:text="|«${efectivo}»|"></span></a></strong></li>
+		<li class="active"><i>Información policial</i></li>
+	</ol>
+</div>
+			
+<!--------------------------------------- INICIO ----------------------------------------------->
+			
+ 
+
+<h4><em class="fad fa-users"></em> <strong><span th:text="|Información policial de «${efectivo}»|"></span></strong></h4><hr>
+
+<form action="#" th:action="@{/gestion/personal/datpolnuevo}" th:object="${modeloPolicia}" method="POST">
+	<input type="hidden" th:field="*{id}" th:value="${id}"></input>
+
+
+<div class="row">
+	<div class="col-1"><p class="h6">Jerarquía:</p></div>
+	<div class="col-4">
+		<select class="form-control" th:field="*{idJerarquia}" th:value="${idJerarquia}">
+			<option th:each="j : ${jerarquias}" th:value="${j.id}" th:text="${j.descripcion}"/>
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-1"><p class="h6">Destino:</p></div>
+	<div class="col-4">
+		<select class="form-control" th:field="*{idDestino}" th:value="${idDestino}">
+			<option th:each="d : ${destinos}" th:value="${d.id}" th:text="${d.descripcion}"/>
+		</select>
+	</div>
+</div>
+
+<hr>
+
+<button class="btn btn-primary" type="submit">
+<em class="fa fa-save"></em> Guardar cambios
+</button>
+</form><br>
+<button class="btn btn-secondary">
+<em class="fa fa-undo-alt"></em> Cancelar
+</button>
+			
+		
+
+
+<!---------------------------------------  FIN   ----------------------------------------------->
+
+</div>
+</div>
+
+      
+
+
+</body>
+</html>

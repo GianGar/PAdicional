@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Policía Adicional</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+<div class="container">
+
+<div th:if="${result == 'ok'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Guardia creada correctamente</strong></h4>
+</div> 
+
+<div th:if="${result == 'modificada'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Guardia modificada correctamente</strong></h4>
+</div> 
+
+<div>
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">● Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/entidades/listar}">● Entidades</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/objetivos/index?entidad=__${idEnte}__}">● <span th:text="${ente}"></span></a></strong></li> 
+		<li><strong><a th:href="@{/gestion/guardias/index?objetivo=__${idObjetivo}__}">● <span th:text="${objetivo}"></span></a></strong></li> 
+		
+		<li class="active"><em>● <span th:text="${titulo}"></span></em></li>
+	</ol>
+</div>
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<h4><em class="fad fa-clock"></em> <span th:text="${titulo}"></span></h4><hr><p>Ingrese hora de entrada y hora de salida.</p>
+<form action="#" th:action="@{/gestion/guardias/nueva}" th:object="${modeloGuardia}" method="POST">
+	<input type="hidden" th:field="*{id}"></input>
+	<div class="row">
+		<div class="col-2"><p class="h6">Hora de entrada:</p></div>
+		<div class="col-2"><input type="time" step="1800" class="form-control" th:field="*{horaEntrada}" th:value="${horaEntrada}" required></input></div>
+	</div><br>
+	<div class="row">
+		<div class="col-2"><p class="h6">Hora de salida:</p></div>
+		<div class="col-2"><input type="time" step="1800" class="form-control" th:field="*{horaSalida}" th:value="${horaSalida}"></input></div>
+	</div><br>
+	<button class="btn btn-primary btn-lg btn-lg" type="submit"><i class="fa fa-save"></i> Guardar</button>	
+</form><br>
+<a th:href="@{/gestion/guardias/index?objetivo=__${idObjetivo}__}">
+	<button class="btn btn-secondary btn-lg btn-lg">
+		<em class="fa fa-arrow-square-left"></em> Volver
+	</button>
+</a>
+
+<!----------------------------------------- FIN ------------------------------------------------>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Policía Adicional</title>
+<meta charset="utf-8" />
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div th:if="${result == 'ok'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Suspensión creada correctamente</strong></h4>
+</div> 
+
+<div th:if="${result == 'modificada'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Suspensión modificada correctamente</strong></h4>
+</div> 
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li class="active"><em>Suspensiones</em></li>
+	</ol>
+</div>
+
+<div class="container">
+
+<h4 class="titulo"><em class="fad fa-calendar-alt"></em> <span th:text="${titulo}"></span></h4><hr>
+		<form action="#" th:action="@{/gestion/personal/suspensiones/nueva}" th:object="${suspension}" method="POST">
+		<input type="hidden" th:field="*{id}"></input>
+			<input type="hidden"></input>
+				<div class="row">
+					<div class="col-1"><p class="h6">Fecha de inicio:</p></div>
+					<div class="col-3"><input type="date" class="form-control" th:field="*{fecha_inicio}" th:value="${fecha_inicio}" required></input></div>
+				</div><br />
+				<div class="row">
+					<div class="col-1"><p class="h6">Fecha de finalización:</p></div>
+					<div class="col-3"><input type="date" class="form-control" th:field="*{fecha_fin}" th:value="${fecha_fin}" required></input></div>
+				</div><br />
+				<div class="row">
+					<div class="col-1"><p class="h6">Detalle:</p></div>
+					<div class="col-6"><input type="text" class="form-control" maxlength="100" th:field="*{detalle}" th:value="${detalle}" required></input></div>
+				</div><br />
+				
+				<div class="container text-right">
+			<button class="btn btn-primary btn-lg" type="submit">
+				<i class="fa fa-save"></i>
+				Guardar
+			</button>
+			</div>
+		</form>
+		
+		<a href="#" th:href="@{/gestion/personal/suspensiones?id=__${ph.id}__}">
+			<button class="btn btn-secondary btn-lg" type="submit">
+				<i class="fa fa-backward"></i>
+				Volver
+			</button>
+			
+		</a>
+		</div>
+<!--------------------------------------- fin ----------------------------------------------->
+</div></div></div></body></html>

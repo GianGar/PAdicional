@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">	
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div th:if="${estado == 'ok'}" class="alert alert-success" role="alert">
+<div class="container text-center">				
+	<h4 class="alert-heading"><em class="fa fa-check-circle"></em> Listado generado.<hr>
+	<a download th:href="@{/listados/porefectivo/__${listado}__.pdf}">
+       	
+       	<button type="button" class="btn btn-primary btn-lg"><img th:src="@{/imgs/pdf.png}"> <strong>Descargar</strong></button>
+	
+	</a></h4></div>
+</div> 
+
+<h4 class="titulo"><em class="fad fa-file-pdf"></em> Listado de Servicios Asignados</h4>
+<hr>
+<p>Esta herramienta genera el listado de servicios asignados del mes actual, con duplicado para la copia, 
+siendo una hoja por efectivo, ordenados por destino.<br>
+Para generar el listado, presione el siguiente botón y luego presione el botón "Descargar".
+</p>
+<hr>
+<a href="#" th:href="@{/adicional/listados/asignados2}">
+<button class="btn btn-primary btn-lg" type="submit">
+				<i class="fa fa-save"></i>
+				Generar listado
+			</button></a>
+
+
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></body></html>

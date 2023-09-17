@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Policía Adicional</title>
+
+<meta charset="utf-8" />
+
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div">...</nav>
+<div id="content">
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+
+<div th:if="${estado == 'creado'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Entidad creada correctamente</strong></h4>
+</div> 
+
+<div th:if="${estado == 'modificado'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-check-circle"></em> Entidad modificada correctamente</strong></h4>
+</div> 
+
+<div th:if="${estado == 'repetido'}" class="alert alert-danger" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-exclamation-triangle"></em> Error</strong></h4><hr>
+	<p class="mb-0">El nombre del ente está repetido.</p>
+</div>
+
+<div>
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/entidades/listar}">Entidades</a></strong></li> 
+		<li class="active"><em><span th:text="${titulo}"></span></em></li>
+	</ol>
+</div>
+
+<div class="container">
+
+<h4><em class="fad fa-city"></em> <span class="titulo" th:text="${titulo}"></span></h4><hr>
+
+<form action="#" th:action="@{/gestion/entidades/nuevo}" th:object="${modeloEnte}" method="POST" enctype="multipart/form-data">
+	<input type="hidden" th:field="*{id}"/>
+	<div class="row">
+	
+	<div class="col-1"><p class="h6">Nombre:</p></div>
+	<div class="col-5">
+		<input required type="text" class="form-control" maxlength="50" th:field="*{nombre}" th:value="${nombre}"/></div>
+	</div><br>
+	
+	<div class="row">
+		<div class="col-1"><p class="h6">Dirección:</p></div>
+		<div class="col-5">
+			<input type="text" class="form-control" maxlength="50" th:field="*{direccion}" th:value="${direccion}"></input>
+		</div>
+	</div><br>
+	
+	<div class="row">
+		<div class="col-1"><p class="h6">Teléfono(s):</p></div>
+		<div class="col">
+			<input type="text" class="form-control" maxlength="100" th:field="*{telefono}" th:value="${telefono}"/>
+		</div>
+	</div><br>
+ 				
+ 	<div class="row">
+		<div class="col-1"><p class="h6">Tipo:</p></div>
+		<div class="col-2">
+			<select class="form-control" th:field="*{tipo}" th:value="${tipo}">
+				<option th:value="'Público'" th:text="Público"></option>
+				<option th:value="'Privado'" th:text="Privado"></option>
+				<option th:value="'Mixto'" th:text="Mixto"></option>
+			</select>
+		</div>
+		<div class="col-2"><p class="h6">Persona responsable:</p></div>
+			<div class="col-3">
+				<input type="text" class="form-control" maxlength="35" th:field="*{responsable}" th:value="${responsable}"/>
+			</div>
+		</div><br>
+	
+	<div class="row">
+		<div class="col-1"><p class="h6">Categoría:</p></div>
+		<div class="col-2">
+			<select class="form-control" th:field="*{id_categ}" th:value="${id_categ}">
+				<option th:each="categ : ${categorias}" th:value="${categ.id}" th:text="${categ.nombre}"/>
+			</select>
+		</div>
+		<div class="col-2"><p class="h6">Estado actual:</p></div>
+			<div class="col-3">
+				<select class="form-control" th:field="*{estado}" th:value="${estado}">
+					<option th:value="'Activo'" th:text="Activo">Activo</option>
+					<option th:value="'Suspendido'" th:text="Suspendido">Suspendido</option>
+				</select>
+			</div>
+		</div><br>
+			
+	<div class="row">
+		<div class="col-1"><p class="h6">Foto:</p></div>
+		<div class="col"><input type="file" name="file" class="m-2"/></div>
+	</div><br>
+	
+	<strong>Importante: La foto no puede pesar más de 1 MB. Formatos permitidos: JPG, PNG.</strong><hr>
+				
+	<div class="container text-right">
+		<button class="btn btn-primary btn-lg shadow-lg" type="submit">
+			<i class="fad fa-save"></i> Guardar
+		</button>
+	</div>
+</form>
+
+<a href="#" th:href="@{/gestion/entidades/listar}">
+	<button class="btn btn-secondary btn-lg" type="submit">
+		<i class="fa fa-backward"></i>
+		Volver
+	</button>
+</a>
+</div>
+
+<!--------------------------------------- FIN ----------------------------------------------->
+</div></div></div></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="Barra"></nav>
+<div id="content">
+<div>
+
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div class="verticals ten offset-by-one">
+	<ol class="breadcrumb breadcrumb-fill2">
+		<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+		<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+		<li><strong><a th:href="@{/gestion/servicios/menu}">Servicios</a></strong></li>
+		<li class="active"><i><span th:text="|${periodo}|"></span></i></li>
+	</ol>
+</div>
+
+<h4 class="titulo">
+	<em class="fad fa-tasks"></em> Asignación de servicios para <span th:text="${periodo}"></span>
+	<br>Efectivo: <span th:text="${modeloPH.policia.persona.nombre}"></span>
+</h4>
+<hr>
+<form th:action="@{/gestion/servicios/seleccionar}">
+	<div class="row">
+    	<div class="col-1">Entidad:</div> 
+    	<div class="col-3">
+    		<select name="ente" class="form-control">
+    			<option th:value="'0'" th:text="'Todas las entidades'"></option>
+				<option th:each="ente : ${entes}" th:value="${ente.id}" th:text="${ente.nombre}"></option>
+			</select>
+		</div>
+		<div class="col-1">Día:</div>
+		<input name="dia" type="number" min="1" max="31" class="form-control" style="width: 75px;"></input>
+		<button type="submit" class="btn btn-success"><em class="fad fa-search"></em> Buscar</button>
+		</div>
+	</form>
+<hr>
+<table class="table table-hover">
+	<thead class="thead-dark">
+		<tr>
+			<th>Objetivo</th>
+			<th>Día</th>
+			<th>Fecha</th>
+			<th>Entrada</th>
+			<th>Salida</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="servicio : ${servicios}">
+			<td><strong>
+				<span th:text="${servicio.objetivo.ente.nombre}"></span><br>
+				<span th:text="${servicio.objetivo.descripcion}"></span>
+			</strong></td>
+			<td th:text="${servicio.dia}"></td>
+			<td th:text="${servicio.fecha}"></td>
+			<td th:text="${servicio.horaEntrada}"></td>
+			<td th:text="${servicio.horaSalida}"></td>	
+			<td>
+				<span style="color:#43a047;">
+					<a href="#" th:href="@{/gestion/servicios/asignar_a?id=__${servicio.id}__&persona=__${persona}__}">
+						<button class="btn btn-primary">
+							<em class="fad fa-user-plus"></em> Asignar servicio
+						</button>
+					</a>
+				</span>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<!--------------------------------------- FIN ----------------------------------------------->
+
+	</div>
+	</div>
+	</div>
+</body>
+</html>

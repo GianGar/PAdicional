@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+  <body>
+  <nav th:fragment="barralateral">
+  <div>
+            <div class="sidebar-header">
+            <div class="container text-center">
+                <h4><a href="#" th:href="@{/panel/index}">Policía Adicional</a></h4></div>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fad fa-tv"></i> Gestión</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#" th:href="@{/gestion/entidades/index}"><i class="fad fa-building"></i> Entidades</a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/gestion/feriados/index}"><i class="fad fa-calendar-alt"></i> Días feriados</a>
+                        </li>
+                        <li>
+                            <a href="#" th:href="@{/gestion/servicios/menu}"><i class="fad fa-tasks"></i> Servicios</a>
+                        </li>
+                        <li>
+                			<a href="#" th:href="@{/gestion/personal/index}"><i class="fad fa-users"></i> Efectivos habilitados</a>
+                		</li>
+                    </ul>
+                </li>
+                
+<!--                 
+				<li>
+                    <a href="#paginaListado" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fa fa-file-pdf"></i>  Listados</a>
+                    <ul class="collapse list-unstyled" id="paginaListado">
+                        <li>
+                            <a href="#" th:href="@{/adicional/listados/diarios}">
+                            	<i class="fad fa-file-pdf"></i> Listados diarios
+                            </a>
+                            <a href="#" th:href="@{/adicional/listados/asignados}">
+                            	<i class="fad fa-file-pdf"></i> Servicios asignados
+                            </a>
+                        </li>
+                    </ul>
+                </li> 
+-->
+                
+                <li>
+                    <a href="#paginaInforme" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <em class="fad fa-chart-pie"></em> Estadísticas</a>
+                    <ul class="collapse list-unstyled" id="paginaInforme">
+                        <li>
+                            <a href="#" th:href="@{/adicional/estadisticas/proximo_mes}">
+                            	<em class="fad fa-chart-pie"></em> Estado de servicios
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fad fa-wrench"></i> Configuración</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#" th:href="@{/configuracion/categorias/listar}"><i class="fad fa-ballot"></i> Categorias de entidades</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="#" th:href="@{/login?logout}" class="article" onclick="return confirm('¿Desea cerrar sesión?')"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </li>
+            </ul>
+
+            </div>
+            
+        </nav>
+        </body>
+        
+        	
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Policía Adicional</title>
+<link rel="shortcut icon" type="image/png" th:href="@{/imgs/icono.png}"/>
+<link href="#" th:href="@{/css/all.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/bread.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+<nav id="sidebar" th:insert="fragments/barralateral :: div" aria-label="Barra">...</nav>
+<div id="content">
+<!--------------------------------------- INICIO ----------------------------------------------->
+
+<div th:if="${estado == 'eliminado'}" class="alert alert-success" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-trash"></em> Objetivo eliminado correctamente</strong></h4>
+</div>
+
+<div th:if="${estado == 'eliminacion_error'}" class="alert alert-danger" role="alert">				
+	<h4 class="alert-heading">Error: No se pudo eliminar el objetivo</h4><hr>
+	<p class="mb-0">Posibles causas:<br>
+	* El objetivo tiene guardias creadas (debe eliminarlas antes de eliminar el objetivo)<br>
+	* Se generaron servicios de este objetivo anteriormente (en este caso, edite el objetivo y coloque Suspendido)</p>
+</div>
+<div th:if="${estado == 'modificacion_error'}" class="alert alert-danger" role="alert">				
+	<h4 class="alert-heading"><strong><em class="fa fa-exclamation-triangle"></em> Error</strong></h4><hr>
+	<p class="mb-0">El nombre del objetivo está repetido.</p>
+</div>
+
+<div>
+	<ol class="breadcrumb breadcrumb-fill2">
+				<li><a th:href="@{/panel/index}"><em class="fa fa-home"></em></a></li>
+				<li><strong><a th:href="@{/panel/index}">Policía Adicional</a></strong></li> 
+				<li><strong><a th:href="@{/gestion/entidades/listar}">Entidades</a></strong></li> 
+				<li class="active"><i><span th:text="${entidad.nombre}"></span></i></li>
+			</ol>
+		</div>
+
+
+		<hr>
+
+<div>
+
+
+<img th:src="@{'/fotos/entes/'+${entidad.foto}}" width="240" height="80" alt=""> <hr>
+<h4 class="titulo"><em class="fad fa-building"></em> Entidad: "<span th:text="${entidad.nombre}"></span>" 
+<span th:if="${entidad.estado=='Activo'}" class="badge badge-success"><i class="fa fa-map-marker-alt"></i> Estado: Activa</span>
+<span th:if="${entidad.estado=='Suspendido'}" class="badge badge-danger"><i class="fa fa-map-marker-alt-slash"></i> Estado: Suspendida</span></h4>
+<hr>
+				<div class="row">
+					<div class="col-2"><p class="h6">● Dirección:</p></div>
+					<div class="col-3"><input type="text" class="form-control form-control-sm" th:value="${entidad.direccion}" disabled></input></div>
+					
+				</div>
+				<div class="row">
+					<div class="col-2"><p class="h6">● Responsable:</p></div>
+					<div class="col-3"><input type="text" class="form-control form-control-sm" th:value="${entidad.responsable}" disabled></input></div>
+					<div class="col-2"><p class="h6">● Teléfono(s):</p></div>
+					<div class="col-3"><input type="text" class="form-control form-control-sm" th:value="${entidad.telefono}" disabled></input></div>
+				</div>
+
+ 				<div class="row">
+					<div class="col-2"><p class="h6">● Tipo:</p></div>
+					<div class="col-2"><input type="text" class="form-control form-control-sm" th:value="${entidad.tipo}" disabled></input></div>
+					<div class="col-1"></div>
+					<div class="col-2"><p class="h6">● Categoría:</p></div>
+					<div class="col-1"><input type="text" class="form-control form-control-sm" th:value="${entidad.categoria.nombre}" disabled></input></div>				
+				</div>
+				</div>
+				
+
+		<hr>
+		
+
+	<h4><em class="fad fa-street-view"></em> <strong>Gestión de objetivos</strong></h4>
+<hr><div class="container text-right">
+		<button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-arrow-square-left"></i> Volver</button>
+<a href="#" th:href="@{/gestion/objetivos/formulario?id=0}">
+	<button class="btn btn-primary" type="submit">
+		<em class="fad fa-plus-circle"></em> Nuevo objetivo
+	</button>
+</a></div>
+<hr>
+<div class="panel panel-default">
+	<div th:if="${objetivos!=null and !objetivos.isEmpty()}">
+		<table class="table table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th>Objetivo</th>
+					<th>Estado</th>
+					<th><abbr title="Requiere portación de arma">Arma</abbr></th>
+					<th><abbr title="Requiere uso de uniforme">Uniforme</abbr></th>
+					<th><abbr title="Requiere uso de traje formal">Traje</abbr></th>
+					<th><abbr title="Requiere uso de vestimenta civil formal">Formal</abbr></th>
+					<th><abbr title="Cantidad de efectivos necesarios para el objetivo">Efectivos</abbr></th>
+					<th>Días</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="objetivo : ${objetivos}" th:onclick="'window.location.href=\'/gestion/guardias/index?objetivo='+${objetivo.id}+'\''">
+					<td>
+						<strong>
+							<a href="#" th:href="@{/gestion/guardias/index?objetivo=__${objetivo.id}__}">
+								<span th:text="${objetivo.descripcion}" style="color:#0000FF;"></span>
+							</a>
+						</strong>
+					</td>
+					<td>
+							<span class="badge badge-success" th:if="${objetivo.estado=='Activo'}"><i class="fa fa-map-marker-alt"></i> Activo</span>
+							<span class="badge badge-danger" th:if="${objetivo.estado=='Suspendido'}"><i class="fa fa-map-marker-alt-slash"></i> Suspendido</span>
+						</td>
+						<td>
+							<span th:if="${objetivo.arma}">Si</span>
+							<span th:if="${!objetivo.arma}">No</span>
+						</td>
+						<td>
+							<span th:if="${objetivo.uniforme}">Si</span>
+							<span th:if="${!objetivo.uniforme}">No</span>
+						</td>
+						<td>
+							<span th:if="${objetivo.traje}">Si</span>
+							<span th:if="${!objetivo.traje}">No</span>
+						</td>
+						<td>
+							<span th:if="${objetivo.traje}">Si</span>
+							<span th:if="${!objetivo.traje}">No</span>
+						</td>
+						<td th:text="${objetivo.efectivos}"></td>
+						<td>
+						<span class="badge badge-light" th:if="${objetivo.lunes}">Lunes</span>
+						<span class="badge badge-light" th:if="${objetivo.martes}">Martes</span>
+						<span class="badge badge-light" th:if="${objetivo.miercoles}">Miercoles</span>
+						<span class="badge badge-light" th:if="${objetivo.jueves}">Jueves</span>
+						<span class="badge badge-light" th:if="${objetivo.viernes}">Viernes</span>
+						<span class="badge badge-light" th:if="${objetivo.sabado}">Sábado</span>
+						<span class="badge badge-danger" th:if="${objetivo.domingo}">Domingo</span>
+						<span class="badge badge-danger" th:if="${objetivo.feriados}">Feriados</span>
+						</td>
+						<td width="220px">
+						<a href="#" th:href="@{/gestion/objetivos/formulario?id=__${objetivo.id}__}">
+								<button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Modificar">
+									<i class="fa fa-edit"></i>
+								</button>
+							</a> 
+						<a href="#" th:href="@{/gestion/objetivos/eliminar?id=__${objetivo.id}__}">
+							<button type="button" class="btn btn-danger" onclick="return confirm('¿Desea eliminar este objetivo?')">
+								<i class="fa fa-trash-alt"></i>
+							</button>
+						</a>
+						<a href="#" th:href="@{/gestion/guardias/index?objetivo=__${objetivo.id}__}">	
+							<button type="button" class="btn btn-info">
+								<i class="fa fa-building"></i> Detalle
+							</button>
+						</a>		
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		
+	</div>
+	</div>
+</body>
+
+<style> 
+#contenedorente { background-color: #f5f5f5; border-radius: 25px;
+  border: 2px solid #bbdefb;
+  padding: 10px;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);} 
+</style>
+
+
+</html>

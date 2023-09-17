@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+  <body>
+  <nav th:fragment="barrasuperior">
+  <div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand"><em class="fad fa-user-circle"></em> Usuario: <strong><span th:text="${usuario}"></span></strong></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <span class="navbar-text">
+    	<a href="#" th:href="@{/gestion/servicios/menu}">
+			<em class="fad fa-user"></em> <strong>Mi perfil</strong>
+		</a>
+    </span>
+  </div>
+</nav>
+</div>
+</nav>
+        </body>
+        
+        	
+</html>
